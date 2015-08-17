@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>app/mirage/config.js</title>
+<link rel="stylesheet" type="text/css" href="highlight.css">
+</head>
+<body class="hl">
+<pre class="hl"><span class="hl kwa">export default function</span><span class="hl opt">() {</span>
+  <span class="hl kwa">this</span><span class="hl opt">.</span><span class="hl kwa">namespace</span> <span class="hl opt">=</span> <span class="hl str">'/api'</span><span class="hl opt">;</span>
+  
+	<span class="hl kwa">this</span><span class="hl opt">.</span><span class="hl kwa">get</span><span class="hl opt">(</span><span class="hl str">'/contacts'</span><span class="hl opt">,</span> <span class="hl kwa">function</span><span class="hl opt">(</span>db<span class="hl opt">) {</span>
+    <span class="hl kwa">return</span> <span class="hl opt">{</span>contacts<span class="hl opt">:</span> db<span class="hl opt">.</span>contacts<span class="hl opt">};</span>
+  <span class="hl opt">});</span>
+
+  <span class="hl kwa">this</span><span class="hl opt">.</span><span class="hl kwa">get</span><span class="hl opt">(</span><span class="hl str">'/contacts/:id'</span><span class="hl opt">,</span> <span class="hl kwa">function</span><span class="hl opt">(</span>db<span class="hl opt">,</span> request<span class="hl opt">) {</span>  
+    <span class="hl kwa">return</span> <span class="hl opt">{</span>contacts<span class="hl opt">:</span> db<span class="hl opt">.</span>contacts<span class="hl opt">.</span><span class="hl kwd">find</span><span class="hl opt">(</span>request<span class="hl opt">.</span>params<span class="hl opt">.</span>id<span class="hl opt">)};</span>
+  <span class="hl opt">});</span>
+
+  <span class="hl slc">// These comments are here to help you get started. Feel free to delete them.</span>
+  <span class="hl slc">//</span>
+
+  <span class="hl com">/*</span>
+<span class="hl com">    Config (with defaults).</span>
+<span class="hl com"></span>
+<span class="hl com">    Note: these only affect routes defined *after* them!</span>
+<span class="hl com">  */</span>
+  <span class="hl kwc">// this.namespace = '';    /</span><span class="hl opt">/</span> make <span class="hl kwa">this</span> <span class="hl opt">`</span>api<span class="hl opt">`,</span> <span class="hl kwa">for</span> example<span class="hl opt">,</span> <span class="hl kwa">if</span> your API is namespaced
+  <span class="hl kwc">// this.timing = 400;      /</span><span class="hl opt">/</span> delay <span class="hl kwa">for</span> each request<span class="hl opt">,</span> automatically <span class="hl kwa">set</span> to <span class="hl num">0</span> during testing
+
+  <span class="hl com">/*</span>
+<span class="hl com">    Route shorthand cheatsheet</span>
+<span class="hl com">  */</span>
+  <span class="hl com">/*</span>
+<span class="hl com">    GET shorthands</span>
+<span class="hl com"></span>
+<span class="hl com">    // Collections</span>
+<span class="hl com">    this.get('/contacts');</span>
+<span class="hl com">    this.get('/contacts', 'users');</span>
+<span class="hl com">    this.get('/contacts', ['contacts', 'addresses']);</span>
+<span class="hl com"></span>
+<span class="hl com">    // Single objects</span>
+<span class="hl com">    this.get('/contacts/:id');</span>
+<span class="hl com">    this.get('/contacts/:id', 'user');</span>
+<span class="hl com">    this.get('/contacts/:id', ['contact', 'addresses']);</span>
+<span class="hl com">  */</span>
+
+  <span class="hl com">/*</span>
+<span class="hl com">    POST shorthands</span>
+<span class="hl com"></span>
+<span class="hl com">    this.post('/contacts');</span>
+<span class="hl com">    this.post('/contacts', 'user'); // specify the type of resource to be created</span>
+<span class="hl com">  */</span>
+
+  <span class="hl com">/*</span>
+<span class="hl com">    PUT shorthands</span>
+<span class="hl com"></span>
+<span class="hl com">    this.put('/contacts/:id');</span>
+<span class="hl com">    this.put('/contacts/:id', 'user'); // specify the type of resource to be updated</span>
+<span class="hl com">  */</span>
+
+  <span class="hl com">/*</span>
+<span class="hl com">    DELETE shorthands</span>
+<span class="hl com"></span>
+<span class="hl com">    this.del('/contacts/:id');</span>
+<span class="hl com">    this.del('/contacts/:id', 'user'); // specify the type of resource to be deleted</span>
+<span class="hl com"></span>
+<span class="hl com">    // Single object + related resources. Make sure parent resource is first.</span>
+<span class="hl com">    this.del('/contacts/:id', ['contact', 'addresses']);</span>
+<span class="hl com">  */</span>
+
+  <span class="hl com">/*</span>
+<span class="hl com">    Function fallback. Manipulate data in the db via</span>
+<span class="hl com"></span>
+<span class="hl com">      - db.{collection}</span>
+<span class="hl com">      - db.{collection}.find(id)</span>
+<span class="hl com">      - db.{collection}.where(query)</span>
+<span class="hl com">      - db.{collection}.update(target, attrs)</span>
+<span class="hl com">      - db.{collection}.remove(target)</span>
+<span class="hl com"></span>
+<span class="hl com">    // Example: return a single object with related models</span>
+<span class="hl com">    this.get('/contacts/:id', function(db, request) {</span>
+<span class="hl com">      var contactId = +request.params.id;</span>
+<span class="hl com"></span>
+<span class="hl com">      return {</span>
+<span class="hl com">        contact: db.contacts.find(contactId),</span>
+<span class="hl com">        addresses: db.addresses.where({contact_id: contactId});</span>
+<span class="hl com">      };</span>
+<span class="hl com">    });</span>
+<span class="hl com"></span>
+<span class="hl com">  */</span>
+<span class="hl opt">}</span>
+
+<span class="hl com">/*</span>
+<span class="hl com">You can optionally export a config that is only loaded during tests</span>
+<span class="hl com">export function testConfig() {</span>
+<span class="hl com"></span>
+<span class="hl com">}</span>
+<span class="hl com">*/</span>
+</pre>
+</body>
+</html>
+<!--HTML generated by highlight 3.22, http://www.andre-simon.de/-->

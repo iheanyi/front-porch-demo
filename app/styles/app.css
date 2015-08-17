@@ -1,0 +1,31 @@
+/*@import 'bootstrap';
+*/
+
+
+.contacts__sidebar {
+  width: 30%;
+  float: left;
+}
+
+.contacts__detail {
+  width: 70%;
+}
+
+.contacts__list {
+  list-style: none;
+  padding: 0;
+}
+
+.contacts__list__item {
+  margin: 8px 0;
+}
+
+.contact__sidebar__picture {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.contact__sidebar__name {
+  margin-left: 8px;
+}
