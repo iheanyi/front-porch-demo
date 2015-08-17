@@ -7,7 +7,7 @@ export default DS.Model.extend({
   avatar: DS.attr('string'),
   email: DS.attr('string'),
 	description: DS.attr('string'),
-  fullName: function() {
+  fullName: Ember.computed('firstName', 'lastName', function(key, value) {
 		return `${this.get('firstName')} ${this.get('lastName')}`;
-	}.property('firstName', 'lastName')
+  })
 });
